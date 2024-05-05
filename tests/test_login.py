@@ -42,6 +42,7 @@ class TestLoginIn:
         driver = webdriver.Chrome()
         driver.get(Url.reg_url)
 
+        WebDriverWait(driver, 10).until(expected_conditions.visibility_of_element_located(Locators.LOGIN_REG_BUT))
         driver.find_element(*Locators.LOGIN_REG_BUT).click()
         driver.find_element(*Locators.EMAIL_FIELD).send_keys(Login.email)
         driver.find_element(*Locators.PASSWORD_FIELD).send_keys(Login.password)
@@ -57,6 +58,7 @@ class TestLoginIn:
         driver = webdriver.Chrome()
         driver.get(Url.forgot_url)
 
+        WebDriverWait(driver, 10).until(expected_conditions.visibility_of_element_located(Locators.LOGIN_REG_BUT))
         driver.find_element(*Locators.LOGIN_REG_BUT).click()
         driver.find_element(*Locators.EMAIL_FIELD).send_keys(Login.email)
         driver.find_element(*Locators.PASSWORD_FIELD).send_keys(Login.password)
