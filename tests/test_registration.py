@@ -1,15 +1,14 @@
-from selenium import webdriver
 from test_data import Login, RandomLogin, Url
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 from locators import Locators
+from conftest import driver
 
 
 class TestRegistration:
 
     # проверка успешной регистрации пользователя
-    def test_registration(self):
-        driver = webdriver.Chrome()
+    def test_registration(self, driver):
         driver.get(Url.reg_url)
 
         WebDriverWait(driver, 10).until(expected_conditions.visibility_of_element_located(Locators.REGISTRATION_BUT))
@@ -21,11 +20,8 @@ class TestRegistration:
         WebDriverWait(driver, 10).until(expected_conditions.visibility_of_element_located(Locators.LOGIN_BUT))
         assert driver.find_element(*Locators.LOGIN_BUT).is_displayed()
 
-        driver.quit()
-
     # проверка, что пользователь с некорректным паролем не регистрируется
-    def test_not_registration_with_invalid_password(self):
-        driver = webdriver.Chrome()
+    def test_not_registration_with_invalid_password(self, driver):
         driver.get(Url.reg_url)
 
         WebDriverWait(driver, 10).until(expected_conditions.visibility_of_element_located(Locators.REGISTRATION_BUT))
@@ -36,5 +32,3 @@ class TestRegistration:
 
         WebDriverWait(driver, 10).until(expected_conditions.visibility_of_element_located(Locators.ERROR_TEXT))
         assert driver.find_element(*Locators.ERROR_TEXT).text == 'Некорректный пароль'
-
-        driver.quit()

@@ -1,15 +1,14 @@
-from selenium import webdriver
 from test_data import Login, Url
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 from locators import Locators
+from conftest import driver
 
 
 class TestLogOut:
 
     # Проверка выхода по кнопке «Выйти» в личном кабинете
-    def test_click_to_logout_from_acc(self):
-        driver = webdriver.Chrome()
+    def test_click_to_logout_from_acc(self, driver):
         driver.get(Url.main_url)
 
         driver.find_element(*Locators.PERSONAL_ACC_BUT).click()
@@ -23,5 +22,3 @@ class TestLogOut:
 
         WebDriverWait(driver, 10).until(expected_conditions.visibility_of_element_located(Locators.LOGIN_BUT))
         assert driver.find_element(*Locators.LOGIN_BUT).is_displayed()
-
-        driver.quit()
